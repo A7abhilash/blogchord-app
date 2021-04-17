@@ -1,0 +1,5 @@
+GET  https://www.googleapis.com/userinfo/v2/me
+Authorization: Bearer ya29.a0AfH6SMCEb563ImmZh7zhWcZX8NrNthUGGwSDM_V5gfFNFXnEln_-I9RXgmDh-3Z5Qmh9ePNGT2AnamZKwcWJDxxHH0PsmtgWj6x3sJXqH5s1_ywvWqqvpdRtR3gtyz2uiKJUCml1flpsjnXkpzw-ZLREv8ZYgQ
+# let userInfoResponse = await fetch('https://www.googleapis.com/userinfo/v2/me', {
+#     headers: { Authorization: `Bearer ${accessToken}` },
+#   });
