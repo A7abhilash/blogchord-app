@@ -11,6 +11,7 @@ const globalStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#121212",
     padding: 20,
+    paddingBottom: 70,
   },
   textTitle: {
     fontSize: 24,

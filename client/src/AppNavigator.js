@@ -20,19 +20,31 @@ export default function AppNavigator() {
       <NavigationContainer>
         <Stack.Navigator>
           {isAuthenticated ? (
-            <Stack.Screen
-              name="Blogchord"
-              component={AuthNavigator}
-              options={{
-                headerStyle: { backgroundColor: globalColors.Tab },
-                headerTintColor: globalColors.Danger,
-                headerTitleStyle: {
-                  fontSize: 26,
-                  fontWeight: "bold",
-                },
-                headerTitleAlign: "center",
-              }}
-            />
+            <>
+              <Stack.Screen
+                name="Blogchord"
+                component={AuthNavigator}
+                options={{
+                  headerStyle: { backgroundColor: globalColors.Tab },
+                  headerTintColor: globalColors.Danger,
+                  headerTitleStyle: {
+                    fontSize: 26,
+                    fontWeight: "bold",
+                  },
+                  headerTitleAlign: "center",
+                }}
+              />
+              {/* 
+                <Stack.Screen 
+                  name="Edit Blog"
+                  component={EditBlog}
+                />
+                <Stack.Screen 
+                  name="Read Blog"
+                  component={ReadBlog}
+                />
+              */}
+            </>
           ) : (
             <Stack.Screen
               name="Login"

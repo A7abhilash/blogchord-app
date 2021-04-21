@@ -37,18 +37,18 @@ router.get("/user", async (req, res) => {
 //@desc       Add new user
 router.post("/newUser", async (req, res) => {
   const newUser = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     let user = await Users.findOne({ googleId: newUser.googleId });
     if (user) {
-      return res.json({ msg: "User logged in successfully!!!" });
+      return res.json({ msg: "User logged in successfully!!!", user });
     }
     user = await User.create(newUser);
     await Bookmark.create({
       user: user._id,
       blogs: [user._id.toString()],
     });
-    return res.json({ msg: "New user created successfully!!!" });
+    return res.json({ msg: "New user created successfully!!!", user });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

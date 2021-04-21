@@ -26,9 +26,10 @@ export function AuthProvider({ children }) {
       const data = await res.json();
       if (data.error) {
         setAlert("Error", data.error, [{ text: "Understood" }]);
-      } else {
-        // console.log(data.msg);
+      } else if (data.user) {
+        // console.log(data);
         setToast(data.msg);
+        setUser(data.user);
       }
     } catch (error) {
       console.log(error);

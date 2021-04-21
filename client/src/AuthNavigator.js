@@ -17,7 +17,7 @@ const AuthNavigator = () => {
           bottom: 10,
           left: 15,
           right: 15,
-          elevation: 0,
+          elevation: 2,
           backgroundColor: globalColors.Tab,
           borderRadius: 15,
           height: 60,
