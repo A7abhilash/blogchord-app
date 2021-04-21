@@ -7,12 +7,17 @@ const globalStyles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#121212",
   },
+  component: {
+    flex: 1,
+    backgroundColor: "#121212",
+    padding: 20,
+  },
   textTitle: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: "600",
   },
   textSubTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "500",
   },
 });
@@ -21,6 +26,7 @@ const globalColors = {
   Dark: "#343a40",
   Secondary: "#6c757d",
   Tab: "#50555a",
+  Card: "#50555a",
   Light: "#f8f9fa",
   Danger: "#dc3545",
   Success: "#28a745",

@@ -17,7 +17,7 @@ router.post("/post", ensureAuth, async (req, res) => {
 
 //*route    /blogs/
 //*desc     Display all public blogs
-router.get("/", ensureAuth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const blogs = await Blog.find({ status: "Public" })
       .populate("user")
@@ -25,7 +25,7 @@ router.get("/", ensureAuth, async (req, res) => {
       .lean();
     res.status(200).json(blogs);
   } catch (error) {
-    res.status(500).json({ msg: "Server error, Please try later." });
+    res.status(500).json({ error: "Server error, Please try later." });
   }
 });
 
