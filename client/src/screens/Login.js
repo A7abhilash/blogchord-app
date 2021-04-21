@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
-import { Button, View } from "react-native";
+import { Button, Image, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../contexts/AuthContext";
-import { globalStyles } from "../styles/globalStyles";
+import { globalColors, globalStyles } from "../styles/globalStyles";
 import { useMsg } from "../contexts/MsgContext";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -33,13 +33,39 @@ export default function Login() {
       } catch (error) {
         console.log(error);
       }
-    } else {
-      setToast("Cancelled Sign In");
     }
+    // else {
+    //   setToast("Cancelled Sign In");
+    // }
   }, [response]);
 
   return (
     <View style={globalStyles.container}>
+      <View
+        style={{
+          marginBottom: 50,
+        }}
+      >
+        <Image
+          source={require("./../../assets/icons/icon.png")}
+          style={{
+            width: 150,
+            height: 150,
+            resizeMode: "contain",
+            marginBottom: 10,
+          }}
+        />
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight: "700",
+            color: globalColors.Danger,
+            textAlign: "center",
+          }}
+        >
+          Blogchord
+        </Text>
+      </View>
       <Button
         disabled={!request}
         title="Login with Goggle"
