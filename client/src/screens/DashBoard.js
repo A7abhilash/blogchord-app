@@ -2,6 +2,7 @@ import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, Text, Image, Button } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
+import { globalColors } from "../styles/globalStyles";
 
 const DashBoard = () => {
   const { user, setIsAuthenticated } = useAuth();
@@ -16,8 +17,17 @@ const DashBoard = () => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={{ fontSize: 20 }}>{user?.displayName}</Text>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: globalColors.Dark,
+      }}
+    >
+      <Text style={{ fontSize: 20, color: globalColors.Light }}>
+        {user?.displayName}
+      </Text>
       <Image
         source={{ uri: user?.image }}
         style={{
@@ -27,7 +37,7 @@ const DashBoard = () => {
           marginVertical: 10,
         }}
       />
-      <Button title="Logout" onPress={signOut} color="red" />
+      <Button title="Logout" onPress={signOut} color={globalColors.Danger} />
     </View>
   );
 };

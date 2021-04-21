@@ -14,14 +14,13 @@ const AuthNavigator = () => {
         showLabel: false,
         style: {
           position: "absolute",
-          bottom: 25,
-          left: 20,
-          right: 20,
+          bottom: 10,
+          left: 15,
+          right: 15,
           elevation: 0,
           backgroundColor: globalColors.Tab,
           borderRadius: 15,
           height: 60,
-          ...styles.shadow,
         },
       }}
     >
@@ -52,10 +51,10 @@ const AuthNavigator = () => {
               <Text
                 style={{
                   color: globalColors.Light,
-                  fontSize: 18,
+                  fontSize: 50,
                 }}
               >
-                Screen2
+                +
               </Text>
             </View>
           ),
@@ -111,16 +110,6 @@ const CustomTabButton = ({ children, onPress }) => {
 };
 
 const styles = StyleSheet.create({
-  shadow: {
-    shadowColor: "#7F5DF0",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
-    elevation: 5,
-  },
   labelContainer: {
     alignItems: "center",
     justifyContent: "center",

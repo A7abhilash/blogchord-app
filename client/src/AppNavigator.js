@@ -5,7 +5,7 @@ import { useAuth } from "./contexts/AuthContext";
 import Loading from "./screens/Loading";
 import Login from "./screens/Login";
 import AuthNavigator from "./AuthNavigator";
-import { globalColors, globalStyles } from "./styles/globalStyles";
+import { globalColors } from "./styles/globalStyles";
 
 export default function AppNavigator() {
   const { isAuthenticated, loading } = useAuth();
