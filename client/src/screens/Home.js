@@ -4,7 +4,7 @@ import CustomError from "../components/CustomError";
 import { globalColors, globalStyles } from "../styles/globalStyles";
 import Loading from "./../screens/Loading";
 import { useMsg } from "../contexts/MsgContext";
-import BACKEND_URL from "./../db";
+import { BACKEND_URL } from "./../db";
 import BlogContainer from "../containers/BlogContainer";
 
 const Home = () => {

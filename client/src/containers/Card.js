@@ -1,9 +1,43 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Button } from "react-native-paper";
 import { globalColors, globalStyles } from "../styles/globalStyles";
 
 const Card = ({ blog, access }) => {
+  const handlePressMoreOptions = () => {
+    Alert.alert(
+      "Action",
+      "Choose your action on this blog?",
+      access
+        ? [
+            {
+              text: "Cancel",
+            },
+            {
+              text: "Edit",
+            },
+            {
+              text: "Delete",
+            },
+          ]
+        : [
+            {
+              text: "Cancel",
+            },
+            {
+              text: "Bookmark",
+            },
+          ]
+    );
+  };
+
   return (
     <View style={styles.cardContainer}>
       <View
@@ -27,6 +61,21 @@ const Card = ({ blog, access }) => {
             {blog.user.displayName}
           </Text>
         </View>
+        <TouchableOpacity
+          style={{
+            marginLeft: "auto",
+            marginRight: 5,
+          }}
+          onPress={handlePressMoreOptions}
+        >
+          <Image
+            source={require("./../../assets/icons/more.png")}
+            style={{
+              width: 20,
+              height: 20,
+            }}
+          />
+        </TouchableOpacity>
       </View>
 
       <View style={{ padding: 5 }}>
@@ -72,6 +121,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: globalColors.Secondary,
     flexDirection: "row",
+    alignItems: "center",
   },
   title: {
     ...globalStyles.textSubTitle,
