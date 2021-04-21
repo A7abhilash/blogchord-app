@@ -5,6 +5,7 @@ import { useAuth } from "./contexts/AuthContext";
 import Loading from "./screens/Loading";
 import Login from "./screens/Login";
 import AuthNavigator from "./AuthNavigator";
+import { globalColors, globalStyles } from "./styles/globalStyles";
 
 export default function AppNavigator() {
   const { isAuthenticated, loading } = useAuth();
@@ -19,9 +20,25 @@ export default function AppNavigator() {
       <NavigationContainer>
         <Stack.Navigator>
           {isAuthenticated ? (
-            <Stack.Screen name="Blogchord" component={AuthNavigator} />
+            <Stack.Screen
+              name="Blogchord"
+              component={AuthNavigator}
+              options={{
+                headerStyle: { backgroundColor: globalColors.Tab },
+                headerTintColor: globalColors.Danger,
+                headerTitleStyle: {
+                  fontSize: 26,
+                  fontWeight: "bold",
+                },
+                headerTitleAlign: "center",
+              }}
+            />
           ) : (
-            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{ headerShown: false }}
+            />
           )}
         </Stack.Navigator>
       </NavigationContainer>

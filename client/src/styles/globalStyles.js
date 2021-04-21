@@ -7,30 +7,6 @@ const globalStyles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#121212",
   },
-  bgDark: {
-    backgroundColor: "#343a40",
-  },
-  bgSecondary: {
-    backgroundColor: "#6c757d",
-  },
-  bgTab: {
-    backgroundColor: "#50555a8f",
-  },
-  textDark: {
-    color: "#343a40",
-  },
-  textLight: {
-    color: "#f8f9fa",
-  },
-  textDanger: {
-    color: "#dc3545",
-  },
-  textSuccess: {
-    color: "#28a745",
-  },
-  textWarning: {
-    color: "#ffc107",
-  },
   textTitle: {
     fontSize: 26,
     fontWeight: "600",
@@ -41,4 +17,14 @@ const globalStyles = StyleSheet.create({
   },
 });
 
-export default globalStyles;
+const globalColors = {
+  Dark: "#343a40",
+  Secondary: "#6c757d",
+  Tab: "#50555a",
+  Light: "#f8f9fa",
+  Danger: "#dc3545",
+  Success: "#28a745",
+  Warning: "#ffc107",
+};
+
+export { globalStyles, globalColors };

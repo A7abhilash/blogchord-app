@@ -4,11 +4,13 @@ import * as Google from "expo-auth-session/providers/google";
 import { Button, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../contexts/AuthContext";
-import globalStyles from "../styles/globalStyles";
+import { globalStyles } from "../styles/globalStyles";
+import { useMsg } from "../contexts/MsgContext";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Login() {
+  const { setToast } = useMsg();
   const { setIsAuthenticated } = useAuth();
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:
@@ -20,7 +22,7 @@ export default function Login() {
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
-      //   console.log(response);
+      console.log(response);
 
       try {
         AsyncStorage.setItem("accessToken", authentication.accessToken).then(
@@ -31,6 +33,8 @@ export default function Login() {
       } catch (error) {
         console.log(error);
       }
+    } else {
+      setToast("Cancelled Sign In");
     }
   }, [response]);
 

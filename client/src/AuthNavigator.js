@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import NewPost from "./screens/NewPost";
 import DashBoard from "./screens/DashBoard";
 import Home from "./screens/Home";
-import globalStyles from "./styles/globalStyles";
+import { globalColors } from "./styles/globalStyles";
 
 const AuthNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -18,9 +18,9 @@ const AuthNavigator = () => {
           left: 20,
           right: 20,
           elevation: 0,
-          backgroundColor: globalStyles.bgTab,
+          backgroundColor: globalColors.Tab,
           borderRadius: 15,
-          height: 80,
+          height: 60,
           ...styles.shadow,
         },
       }}
@@ -33,7 +33,7 @@ const AuthNavigator = () => {
             <View style={styles.labelContainer}>
               <Text
                 style={{
-                  color: focused ? globalStyles.textDanger : "#748c94",
+                  color: focused ? globalColors.Danger : globalColors.Light,
                   fontSize: 18,
                 }}
               >
@@ -51,7 +51,7 @@ const AuthNavigator = () => {
             <View style={styles.labelContainer}>
               <Text
                 style={{
-                  color: "#748c94",
+                  color: globalColors.Light,
                   fontSize: 18,
                 }}
               >
@@ -70,7 +70,7 @@ const AuthNavigator = () => {
             <View style={styles.labelContainer}>
               <Text
                 style={{
-                  color: focused ? globalStyles.textDanger : "#748c94",
+                  color: focused ? globalColors.Danger : globalColors.Light,
                   fontSize: 18,
                 }}
               >
@@ -98,10 +98,10 @@ const CustomTabButton = ({ children, onPress }) => {
     >
       <View
         style={{
-          width: 80,
-          height: 80,
-          borderRadius: 40,
-          backgroundColor: globalStyles.textDanger,
+          width: 70,
+          height: 70,
+          borderRadius: 70,
+          backgroundColor: globalColors.Danger,
         }}
       >
         {children}
