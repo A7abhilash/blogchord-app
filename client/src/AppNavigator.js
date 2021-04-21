@@ -6,6 +6,7 @@ import Loading from "./screens/Loading";
 import Login from "./screens/Login";
 import AuthNavigator from "./AuthNavigator";
 import { globalColors } from "./styles/globalStyles";
+import ReadBlog from "./components/blogs/ReadBlog";
 
 export default function AppNavigator() {
   const { isAuthenticated, loading } = useAuth();
@@ -18,30 +19,30 @@ export default function AppNavigator() {
   return (
     isAuthenticated !== null && (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: globalColors.Tab },
+            headerTintColor: globalColors.Danger,
+            headerTitleStyle: {
+              fontSize: 26,
+              fontWeight: "bold",
+            },
+            headerTitleAlign: "center",
+            headerTitle: "Blogchord",
+          }}
+        >
           {isAuthenticated ? (
             <>
               <Stack.Screen
                 name="Blogchord"
                 component={AuthNavigator}
-                options={{
-                  headerStyle: { backgroundColor: globalColors.Tab },
-                  headerTintColor: globalColors.Danger,
-                  headerTitleStyle: {
-                    fontSize: 26,
-                    fontWeight: "bold",
-                  },
-                  headerTitleAlign: "center",
-                }}
+                // options={}
               />
+              <Stack.Screen name="Read Blog" component={ReadBlog} />
               {/* 
                 <Stack.Screen 
                   name="Edit Blog"
                   component={EditBlog}
-                />
-                <Stack.Screen 
-                  name="Read Blog"
-                  component={ReadBlog}
                 />
               */}
             </>

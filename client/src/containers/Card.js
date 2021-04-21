@@ -10,7 +10,7 @@ import {
 import { Button } from "react-native-paper";
 import { globalColors, globalStyles } from "../styles/globalStyles";
 
-const Card = ({ blog, access }) => {
+const Card = ({ readBlog, blog, access }) => {
   const handlePressMoreOptions = () => {
     Alert.alert(
       "Action",
@@ -81,7 +81,10 @@ const Card = ({ blog, access }) => {
       <View style={{ padding: 5 }}>
         <Text style={styles.title}>{blog.title}</Text>
         <View style={styles.buttonContainer}>
-          <Button color={globalColors.Success} onPress={""}>
+          <Button
+            color={globalColors.Success}
+            onPress={() => readBlog("Read Blog", { blog })}
+          >
             Read
           </Button>
           <Button

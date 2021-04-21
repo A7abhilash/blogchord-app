@@ -7,7 +7,7 @@ import { useMsg } from "../contexts/MsgContext";
 import { BACKEND_URL } from "./../db";
 import BlogContainer from "../containers/BlogContainer";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const { setToast } = useMsg();
   const [blogs, setBlogs] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -42,7 +42,9 @@ const Home = () => {
       <Text style={{ color: globalColors.Light, ...globalStyles.textTitle }}>
         Recent Blogs
       </Text>
-      {blogs !== null && <BlogContainer displayBlogs={blogs} />}
+      {blogs !== null && (
+        <BlogContainer displayBlogs={blogs} navigation={navigation} />
+      )}
     </View>
   );
 };

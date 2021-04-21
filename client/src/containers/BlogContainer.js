@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { globalStyles } from "../styles/globalStyles";
 import Card from "./Card";
 
-export default function BlogContainer({ displayBlogs, isProfile }) {
+export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
   const { user } = useAuth();
 
   return displayBlogs?.length ? (
@@ -13,6 +13,7 @@ export default function BlogContainer({ displayBlogs, isProfile }) {
       keyExtractor={(item) => item._id}
       renderItem={({ item }) => (
         <Card
+          readBlog={navigation.navigate}
           blog={item}
           access={user?._id === item.user._id}
           isProfile={false}
