@@ -11,7 +11,7 @@ import { Button } from "react-native-paper";
 import { globalColors, globalStyles } from "../styles/globalStyles";
 
 const Card = ({
-  readBlog,
+  navigate,
   blog,
   access,
   addBookmark,
@@ -67,21 +67,25 @@ const Card = ({
           ...styles.userBar,
         }}
       >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={{ uri: blog.user.image }}
-            style={{
-              width: 35,
-              height: 35,
-              borderRadius: 35,
-              marginRight: 10,
-              resizeMode: "contain",
-            }}
-          />
-          <Text style={{ color: globalColors.Danger, fontSize: 16 }}>
-            {blog.user.displayName}
-          </Text>
-        </View>
+        <TouchableOpacity
+          onPress={() => navigate("User Profile", { userId: blog.user._id })}
+        >
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Image
+              source={{ uri: blog.user.image }}
+              style={{
+                width: 35,
+                height: 35,
+                borderRadius: 35,
+                marginRight: 10,
+                resizeMode: "contain",
+              }}
+            />
+            <Text style={{ color: globalColors.Danger, fontSize: 16 }}>
+              {blog.user.displayName}
+            </Text>
+          </View>
+        </TouchableOpacity>
         {access ? (
           <TouchableOpacity
             style={{
@@ -122,7 +126,7 @@ const Card = ({
         <View style={styles.buttonContainer}>
           <Button
             color={globalColors.Success}
-            onPress={() => readBlog("Read Blog", { blog })}
+            onPress={() => navigate("Read Blog", { blog })}
           >
             Read
           </Button>

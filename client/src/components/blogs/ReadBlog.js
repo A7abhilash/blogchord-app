@@ -1,13 +1,25 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { Card, Subheading } from "react-native-paper";
+import UserProfile from "../../containers/UserProfile";
 import { globalColors, globalStyles } from "../../styles/globalStyles";
 
-export default function ReadBlog({ route, navigation }) {
+export default function ReadBlog({ route }) {
   const { blog } = route.params;
 
   return (
-    <View style={globalStyles.component}>
+    <ScrollView style={globalStyles.component}>
+      <Text
+        style={{
+          ...globalStyles.textTitle,
+          color: globalColors.Danger,
+          textAlign: "center",
+        }}
+      >
+        Author
+      </Text>
+      <UserProfile user={blog.user} />
       <Card style={styles.cardContainer}>
         <Card.Content style={{ backgroundColor: globalColors.Secondary }}>
           <Text
@@ -41,13 +53,12 @@ export default function ReadBlog({ route, navigation }) {
           </Text>
         </Card.Content>
       </Card>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   cardContainer: {
-    marginTop: 5,
     backgroundColor: globalColors.Dark,
   },
 });

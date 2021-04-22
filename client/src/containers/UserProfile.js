@@ -1,8 +1,11 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
+import { Button } from "react-native-paper";
+import { useAuth } from "../contexts/AuthContext";
 import { globalColors } from "../styles/globalStyles";
 
 export default function UserProfile({ user }) {
+  const { user: currentUser } = useAuth();
   return (
     <View
       style={{
@@ -14,26 +17,36 @@ export default function UserProfile({ user }) {
         borderStyle: "solid",
       }}
     >
-      <Image
-        source={{ uri: user?.image }}
+      <View style={{ flex: 2 }}>
+        <Image
+          source={{ uri: user?.image }}
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 100,
+          }}
+        />
+      </View>
+      <View
         style={{
-          width: 100,
-          height: 100,
-          borderRadius: 100,
-        }}
-      />
-      <Text
-        style={{
-          fontSize: 30,
-          color: globalColors.Light,
-          marginLeft: "auto",
-          marginRight: 30,
+          flex: 6,
         }}
       >
-        {user?.displayName}
-      </Text>
+        <Text
+          style={{
+            fontSize: 30,
+            color: globalColors.Light,
+            textAlign: "center",
+          }}
+        >
+          {user?.displayName}
+        </Text>
+        {currentUser?._id !== user._id && (
+          <Button mode="contained" color={globalColors.Info}>
+            Visit Profile
+          </Button>
+        )}
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({});

@@ -78,7 +78,7 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
       keyExtractor={(item) => item._id}
       renderItem={({ item }) => (
         <Card
-          readBlog={navigation.navigate}
+          navigate={navigation.navigate}
           blog={item}
           access={user?._id === item.user._id}
           isProfile={false}
