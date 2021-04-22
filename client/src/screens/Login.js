@@ -68,7 +68,7 @@ export default function Login() {
       </View>
       <Button
         disabled={!request}
-        title="Login with Goggle"
+        title="Login with Google"
         onPress={() => {
           promptAsync();
         }}

@@ -126,19 +126,31 @@ const Card = ({
           >
             Read
           </Button>
-          <Button
-            mode={liked ? "contained" : "outlined"}
-            disabled={access}
-            color={globalColors.Warning}
+          <View
             style={{
               marginLeft: "auto",
               marginRight: 5,
-              borderColor: globalColors.Warning,
+              flexDirection: "row",
             }}
-            onPress={liked ? onDislike : onLike}
           >
-            {liked ? "Unlike" : "Like"} ({likesCount})
-          </Button>
+            <TouchableOpacity
+              disabled={access}
+              onPress={liked ? onDislike : onLike}
+            >
+              <Text style={{ fontSize: 20, color: globalColors.Light }}>
+                {liked ? "💛" : "🤍"}
+              </Text>
+            </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 20,
+                marginLeft: 5,
+                color: globalColors.Warning,
+              }}
+            >
+              ({likesCount})
+            </Text>
+          </View>
         </View>
         <Text style={{ color: globalColors.Secondary, marginVertical: 5 }}>
           {new Date(blog.createdAt).toDateString()}

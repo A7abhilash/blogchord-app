@@ -27,15 +27,12 @@ export function AuthProvider({ children }) {
       if (data.error) {
         setAlert("Error", data.error, [{ text: "Understood" }]);
       } else if (data.user) {
-        // console.log(data);
         setToast(data.msg);
         setUser(data.user);
       }
     } catch (error) {
       console.log(error);
       setAlert("Error", "Server error, Please try later.", [{ text: "OK" }]);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -79,6 +76,8 @@ export function AuthProvider({ children }) {
     } catch (error) {
       //   console.log(error);
       setAlert("Error", "Server error, Please try later.", [{ text: "OK" }]);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
