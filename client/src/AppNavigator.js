@@ -1,4 +1,5 @@
 import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuth } from "./contexts/AuthContext";
@@ -7,6 +8,8 @@ import Login from "./screens/Login";
 import AuthNavigator from "./AuthNavigator";
 import { globalColors } from "./styles/globalStyles";
 import ReadBlog from "./components/blogs/ReadBlog";
+import { Text } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function AppNavigator() {
   const { isAuthenticated, loading } = useAuth();
@@ -27,8 +30,8 @@ export default function AppNavigator() {
               fontSize: 26,
               fontWeight: "bold",
             },
-            headerTitleAlign: "center",
             headerTitle: "Blogchord",
+            headerRight: () => <Logout />,
           }}
         >
           {isAuthenticated ? (
@@ -58,3 +61,22 @@ export default function AppNavigator() {
     )
   );
 }
+
+const Logout = () => {
+  const { setIsAuthenticated } = useAuth();
+
+  const logOut = async () => {
+    try {
+      await AsyncStorage.removeItem("accessToken");
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <TouchableOpacity onPress={logOut} style={{ marginRight: 10 }}>
+      <Text style={{ fontSize: 24 }}>👋🏻</Text>
+    </TouchableOpacity>
+  );
+};

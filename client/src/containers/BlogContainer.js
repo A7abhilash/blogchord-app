@@ -16,7 +16,7 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
       if (data.error) {
         setToast("Couldnt load your bookmarks!!!");
       } else {
-        setSavedLists(data.savedBlogsList.blogs);
+        setSavedLists(data?.savedBlogsList?.blogs);
       }
     });
   }, [setSavedLists, user?._id]);
@@ -83,7 +83,7 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
           access={user?._id === item.user._id}
           isProfile={false}
           addBookmark={addBookmark}
-          isBookmarked={savedLists.includes(item._id)}
+          isBookmarked={savedLists?.includes(item._id)}
           removeBookmark={removeBookmark}
           likes={item.likes}
           isLiked={item.likes.includes(user?._id)}
