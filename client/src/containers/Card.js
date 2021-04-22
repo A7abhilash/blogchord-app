@@ -14,6 +14,9 @@ const Card = ({
   readBlog,
   blog,
   access,
+  addBookmark,
+  isBookmarked,
+  removeBookmark,
   likes,
   isLiked,
   likeBlog,
@@ -61,9 +64,15 @@ const Card = ({
             {
               text: "Cancel",
             },
-            {
-              text: "Bookmark",
-            },
+            isBookmarked
+              ? {
+                  text: "UnBookmark",
+                  onPress: () => removeBookmark(blog._id),
+                }
+              : {
+                  text: "Bookmark",
+                  onPress: () => addBookmark(blog._id),
+                },
           ]
     );
   };
