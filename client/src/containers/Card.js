@@ -45,36 +45,18 @@ const Card = ({
   };
 
   const handlePressMoreOptions = () => {
-    Alert.alert(
-      "Action",
-      "Choose your action on this blog?",
-      access
-        ? [
-            {
-              text: "Cancel",
-            },
-            {
-              text: "Edit",
-            },
-            {
-              text: "Delete",
-            },
-          ]
-        : [
-            {
-              text: "Cancel",
-            },
-            isBookmarked
-              ? {
-                  text: "UnBookmark",
-                  onPress: () => removeBookmark(blog._id),
-                }
-              : {
-                  text: "Bookmark",
-                  onPress: () => addBookmark(blog._id),
-                },
-          ]
-    );
+    access &&
+      Alert.alert("Action", "Choose your action on this blog?", [
+        {
+          text: "Cancel",
+        },
+        {
+          text: "Edit",
+        },
+        {
+          text: "Delete",
+        },
+      ]);
   };
 
   return (
@@ -100,21 +82,39 @@ const Card = ({
             {blog.user.displayName}
           </Text>
         </View>
-        <TouchableOpacity
-          style={{
-            marginLeft: "auto",
-            marginRight: 5,
-          }}
-          onPress={handlePressMoreOptions}
-        >
-          <Image
-            source={require("./../../assets/icons/more.png")}
+        {access ? (
+          <TouchableOpacity
             style={{
-              width: 20,
-              height: 20,
+              marginLeft: "auto",
+              marginRight: 5,
             }}
-          />
-        </TouchableOpacity>
+            onPress={handlePressMoreOptions}
+          >
+            <Image
+              source={require("./../../assets/icons/more.png")}
+              style={{
+                width: 20,
+                height: 20,
+              }}
+            />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={{
+              marginLeft: "auto",
+              marginRight: 5,
+            }}
+            onPress={
+              isBookmarked
+                ? () => removeBookmark(blog._id)
+                : () => addBookmark(blog._id)
+            }
+          >
+            <Text style={{ fontSize: 25, color: globalColors.Warning }}>
+              {isBookmarked ? "★" : "☆"}
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       <View style={{ padding: 5 }}>
