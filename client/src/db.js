@@ -4,7 +4,6 @@ export async function getLoggedInUserDetails(id) {
   try {
     let res = await fetch(`${BACKEND_URL}/users/auth/${id}`);
     let data = await res.json();
-    // console.log(data);
     return data;
   } catch (error) {
     return { error: "Server Error, Please Try Later" };
@@ -44,27 +43,6 @@ export async function deleteBlog(id) {
   }
 }
 
-export async function addToBookmark(blogId, userId) {
-  try {
-    const newBlog = {
-      blogId,
-      userId,
-    };
-    let res = await fetch("${BACKEND_URL}/users/addBookmark", {
-      method: "PATCH",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newBlog),
-    });
-    let data = await res.json();
-    return data;
-  } catch (error) {
-    alert(error.msg);
-  }
-}
-
 export async function updateBookmark(updatedList, userId) {
   try {
     const updateList = {
@@ -83,6 +61,6 @@ export async function updateBookmark(updatedList, userId) {
     let data = await res.json();
     return data;
   } catch (error) {
-    alert(error.msg);
+    return { error: error.error };
   }
 }

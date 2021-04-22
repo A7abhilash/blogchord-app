@@ -27,45 +27,42 @@ router.get("/:id", ensureAuth, async (req, res) => {
 
 //*route    /users/auth/:id
 //*desc     Fetch the logged in user's blogs & notifications
-router.get("/auth/:id", ensureAuth, async (req, res) => {
+router.get("/auth/:id", async (req, res) => {
   try {
-    if (req.params.id.toString() === req.user._id.toString()) {
-      const blogs = await Blog.find({ user: req.params.id })
-        .populate("user")
-        .sort({ createdAt: "desc" })
-        .lean();
-      const savedBlogsList = await Bookmark.findOne({ user: req.params.id });
-      // console.log(savedBlogsList);
-      const allBlogs = await Blog.find().populate("user").lean();
-      // console.log(allBlogs);
-      const savedBlogs = [];
-      if (savedBlogsList) {
-        savedBlogsList.blogs.forEach((blogId) => {
-          allBlogs.forEach((blog) => {
-            if (
-              blog._id.toString() === blogId &&
-              blog._id.toString() !== req.params.id.toString()
-            ) {
-              if (blog.status === "Public") {
-                savedBlogs.push(blog);
-              } else {
-                // console.log(blogId);
-                let item = {
-                  _id: blogId,
-                  body:
-                    "This blog has been deleted or turned into private status by the author.",
-                  status: "NotFound",
-                };
-                savedBlogs.push(item);
-              }
+    const blogs = await Blog.find({ user: req.params.id })
+      .populate("user")
+      .sort({ createdAt: "desc" })
+      .lean();
+    const savedBlogsList = await Bookmark.findOne({ user: req.params.id });
+    // console.log(savedBlogsList);
+    const allBlogs = await Blog.find().populate("user").lean();
+    // console.log(allBlogs);
+    const savedBlogs = [];
+    if (savedBlogsList) {
+      savedBlogsList.blogs.forEach((blogId) => {
+        allBlogs.forEach((blog) => {
+          if (
+            blog._id.toString() === blogId &&
+            blog._id.toString() !== req.params.id.toString()
+          ) {
+            if (blog.status === "Public") {
+              savedBlogs.push(blog);
+            } else {
+              // console.log(blogId);
+              let item = {
+                _id: blogId,
+                body:
+                  "This blog has been deleted or turned into private status by the author.",
+                status: "NotFound",
+              };
+              savedBlogs.push(item);
             }
-          });
+          }
         });
-      }
-      // console.log(savedBlogs);
-      return res.status(200).json({ blogs, savedBlogs, savedBlogsList });
+      });
     }
-    return res.status(400).json({ msg: "404 Error" });
+    // console.log(savedBlogs);
+    return res.status(200).json({ blogs, savedBlogs, savedBlogsList });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "Server Error" });

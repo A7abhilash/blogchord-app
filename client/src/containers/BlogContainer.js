@@ -13,7 +13,11 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
 
   useEffect(() => {
     getLoggedInUserDetails(user?._id).then((data) => {
-      setSavedLists(data.savedBlogsList.blogs);
+      if (data.error) {
+        setToast("Couldnt load your bookmarks!!!");
+      } else {
+        setSavedLists(data.savedBlogsList.blogs);
+      }
     });
   }, [setSavedLists, user?._id]);
 
@@ -22,7 +26,11 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
       let updatedList = [blogId, ...savedLists];
       let res = await updateBookmark(updatedList, user?._id);
       setSavedLists(updatedList);
-      setToast(res.status === 200 ? "Bookmark added ★" : res.error);
+      if (res.error) {
+        setToast(res.error);
+      } else {
+        setToast("Bookmark added ★");
+      }
     } else setAlert("Wrong Action", "Blog is already saved", "Understood");
   };
 
@@ -33,7 +41,11 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
       );
       let res = await updateBookmark(updatedList, user?._id);
       setSavedLists(updatedList);
-      setAlert(res.status === 200 ? "Bookmark removed ☆" : res.error);
+      if (res.error) {
+        setToast(res.error);
+      } else {
+        setToast("Bookmark removed ☆");
+      }
     } else alert("Wrong Action", "Blog wasn't saved", "Understood");
   };
   const likeBlog = async (blog) => {
@@ -41,9 +53,9 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
       let updatedLikes = {
         likes: [...blog.likes, user._id],
       };
-      let data = await updateLikes(updatedLikes, blog._id);
-      if (data.error) {
-        setToast(data.error);
+      let res = await updateLikes(updatedLikes, blog._id);
+      if (res.error) {
+        setToast(res.error);
       }
     }
   };
@@ -53,9 +65,9 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
       let updatedLikes = {
         likes: blog.likes.filter((id) => id !== user._id),
       };
-      let data = await updateLikes(updatedLikes, blog._id);
-      if (data.error) {
-        setToast(data.error);
+      let res = await updateLikes(updatedLikes, blog._id);
+      if (res.error) {
+        setToast(res.error);
       }
     }
   };
