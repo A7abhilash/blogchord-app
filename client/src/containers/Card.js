@@ -110,7 +110,7 @@ const Card = ({
                 : () => addBookmark(blog._id)
             }
           >
-            <Text style={{ fontSize: 25, color: globalColors.Warning }}>
+            <Text style={{ fontSize: 28, color: globalColors.Primary }}>
               {isBookmarked ? "★" : "☆"}
             </Text>
           </TouchableOpacity>
@@ -140,7 +140,7 @@ const Card = ({
             {liked ? "Unlike" : "Like"} ({likesCount})
           </Button>
         </View>
-        <Text style={{ color: globalColors.Light, marginVertical: 5 }}>
+        <Text style={{ color: globalColors.Secondary, marginVertical: 5 }}>
           {new Date(blog.createdAt).toDateString()}
         </Text>
       </View>

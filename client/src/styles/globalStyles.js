@@ -32,6 +32,8 @@ const globalColors = {
   Danger: "#dc3545",
   Success: "#28a745",
   Warning: "#ffc107",
+  Primary: "#0275d8",
+  Info: "#5bc0de",
 };
 
 export { globalStyles, globalColors };
