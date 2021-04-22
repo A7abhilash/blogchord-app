@@ -19,6 +19,7 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
           isProfile={false}
         />
       )}
+      showsVerticalScrollIndicator={false}
     />
   ) : (
     <View style={globalStyles.container}>

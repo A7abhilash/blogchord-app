@@ -34,6 +34,8 @@ export function AuthProvider({ children }) {
     } catch (error) {
       console.log(error);
       setAlert("Error", "Server error, Please try later.", [{ text: "OK" }]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,8 +79,6 @@ export function AuthProvider({ children }) {
     } catch (error) {
       //   console.log(error);
       setAlert("Error", "Server error, Please try later.", [{ text: "OK" }]);
-    } finally {
-      setLoading(false);
     }
   }, []);
 

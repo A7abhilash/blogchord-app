@@ -22,7 +22,7 @@ export default function Login() {
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
-      console.log(response);
+      // console.log(response);
 
       try {
         AsyncStorage.setItem("accessToken", authentication.accessToken).then(

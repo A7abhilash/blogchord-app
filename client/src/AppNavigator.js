@@ -33,16 +33,16 @@ export default function AppNavigator() {
         >
           {isAuthenticated ? (
             <>
-              <Stack.Screen
-                name="Blogchord"
-                component={AuthNavigator}
-                // options={}
-              />
+              <Stack.Screen name="Blogchord" component={AuthNavigator} />
               <Stack.Screen name="Read Blog" component={ReadBlog} />
               {/* 
                 <Stack.Screen 
                   name="Edit Blog"
                   component={EditBlog}
+                />
+                <Stack.Screen 
+                  name="User Profile"
+                  component={UserProfile}
                 />
               */}
             </>
