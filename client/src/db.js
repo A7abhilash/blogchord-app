@@ -7,7 +7,7 @@ export async function getLoggedInUserDetails(id) {
     // console.log(data);
     return data;
   } catch (error) {
-    alert(error.msg);
+    return { error: "Server Error, Please Try Later" };
   }
 }
 
@@ -21,11 +21,10 @@ export async function updateLikes(updatedLikes, blogId) {
       },
       body: JSON.stringify(updatedLikes),
     });
-    return res;
+    let data = await res.json();
+    return data;
   } catch (error) {
-    console.log(error);
-    alert(error.msg);
-    return { status: 500 };
+    return { error: "Server Error, Please Try Later" };
   }
 }
 

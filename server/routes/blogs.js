@@ -72,17 +72,17 @@ router.patch("/edit/:id", ensureAuth, async (req, res) => {
 
 //*route    /blogs/updateLikes/:id
 //*desc     update likes on a blog
-router.patch("/updateLikes/:id", ensureAuth, async (req, res) => {
+router.patch("/updateLikes/:id", async (req, res) => {
   try {
     // console.log(req.body);
     let blog = await Blog.findById(req.params.id);
     if (!blog) {
-      return res.status(400).json({ msg: "404 Error" });
+      return res.status(400).json({ error: "404 Error" });
     }
     await blog.updateOne(req.body);
     res.status(200).json({ msg: "Liked" });
   } catch (error) {
-    res.status(500).json({ msg: "Server error, Please try later." });
+    res.status(500).json({ error: "Server error, Please try later." });
   }
 });
 

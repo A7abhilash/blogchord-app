@@ -1,19 +1,24 @@
 import React from "react";
 import { View, Text, FlatList } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
+import { useMsg } from "../contexts/MsgContext";
 import { updateLikes } from "../db";
 import { globalStyles } from "../styles/globalStyles";
 import Card from "./Card";
 
 export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
   const { user } = useAuth();
+  const { setToast } = useMsg();
 
   const likeBlog = async (blog) => {
     if (!blog.likes.includes(user._id)) {
       let updatedLikes = {
         likes: [...blog.likes, user._id],
       };
-      await updateLikes(updatedLikes, blog._id);
+      let data = await updateLikes(updatedLikes, blog._id);
+      if (data.error) {
+        setToast(data.error);
+      }
     }
   };
 
@@ -22,7 +27,10 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
       let updatedLikes = {
         likes: blog.likes.filter((id) => id !== user._id),
       };
-      await updateLikes(updatedLikes, blog._id);
+      let data = await updateLikes(updatedLikes, blog._id);
+      if (data.error) {
+        setToast(data.error);
+      }
     }
   };
 
