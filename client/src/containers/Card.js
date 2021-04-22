@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Alert,
   Image,
@@ -10,7 +10,37 @@ import {
 import { Button } from "react-native-paper";
 import { globalColors, globalStyles } from "../styles/globalStyles";
 
-const Card = ({ readBlog, blog, access }) => {
+const Card = ({
+  readBlog,
+  blog,
+  access,
+  likes,
+  isLiked,
+  likeBlog,
+  dislikeBlog,
+}) => {
+  const [liked, setLiked] = useState(isLiked);
+  const [likesCount, setLikesCount] = useState(likes?.length);
+
+  // useEffect(() => {
+  //   setLiked(isLiked);
+  //   setLikesCount(likes.length);
+  // }, [isLiked, likes.length]);
+
+  const onLike = () => {
+    // console.log("Like");
+    setLiked(true);
+    setLikesCount((prev) => prev + 1);
+    likeBlog(blog);
+  };
+
+  const onDislike = () => {
+    // console.log("Dislike");
+    setLiked(false);
+    setLikesCount((prev) => prev - 1);
+    dislikeBlog(blog);
+  };
+
   const handlePressMoreOptions = () => {
     Alert.alert(
       "Action",
@@ -88,7 +118,7 @@ const Card = ({ readBlog, blog, access }) => {
             Read
           </Button>
           <Button
-            mode="outlined"
+            mode={liked ? "contained" : "outlined"}
             disabled={access}
             color={globalColors.Warning}
             style={{
@@ -96,9 +126,9 @@ const Card = ({ readBlog, blog, access }) => {
               marginRight: 5,
               borderColor: globalColors.Warning,
             }}
-            onPress={""}
+            onPress={liked ? onDislike : onLike}
           >
-            Like
+            {liked ? "Unlike" : "Like"} ({likesCount})
           </Button>
         </View>
         <Text style={{ color: globalColors.Light, marginVertical: 5 }}>
