@@ -5,7 +5,7 @@ import { Card, Subheading } from "react-native-paper";
 import UserProfile from "../../containers/UserProfile";
 import { globalColors, globalStyles } from "../../styles/globalStyles";
 
-export default function ReadBlog({ route }) {
+export default function ReadBlog({ route, navigation }) {
   const { blog } = route.params;
 
   return (
@@ -19,7 +19,7 @@ export default function ReadBlog({ route }) {
       >
         Author
       </Text>
-      <UserProfile user={blog.user} />
+      <UserProfile user={blog.user} navigate={navigation.navigate} />
       <Card style={styles.cardContainer}>
         <Card.Content style={{ backgroundColor: globalColors.Secondary }}>
           <Text

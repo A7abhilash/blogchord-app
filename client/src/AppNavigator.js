@@ -10,6 +10,7 @@ import { globalColors } from "./styles/globalStyles";
 import ReadBlog from "./components/blogs/ReadBlog";
 import { Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import ProfileVisit from "./components/profile/ProfileVisit";
 
 export default function AppNavigator() {
   const { isAuthenticated, loading } = useAuth();
@@ -43,11 +44,8 @@ export default function AppNavigator() {
                   name="Edit Blog"
                   component={EditBlog}
                 />
-                <Stack.Screen 
-                  name="User Profile"
-                  component={UserProfile}
-                />
               */}
+              <Stack.Screen name="Profile Visit" component={ProfileVisit} />
             </>
           ) : (
             <Stack.Screen

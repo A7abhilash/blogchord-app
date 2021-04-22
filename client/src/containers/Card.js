@@ -68,7 +68,7 @@ const Card = ({
         }}
       >
         <TouchableOpacity
-          onPress={() => navigate("User Profile", { userId: blog.user._id })}
+          onPress={() => navigate("Profile Visit", { userId: blog.user._id })}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Image
