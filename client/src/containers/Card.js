@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Image,
@@ -22,13 +22,13 @@ const Card = ({
   likeBlog,
   dislikeBlog,
 }) => {
-  const [liked, setLiked] = useState(isLiked);
-  const [likesCount, setLikesCount] = useState(likes?.length);
+  const [liked, setLiked] = useState(null);
+  const [likesCount, setLikesCount] = useState(null);
 
-  // useEffect(() => {
-  //   setLiked(isLiked);
-  //   setLikesCount(likes.length);
-  // }, [isLiked, likes.length]);
+  useEffect(() => {
+    setLiked(isLiked);
+    setLikesCount(likes.length);
+  }, [isLiked, likes.length]);
 
   const onLike = () => {
     // console.log("Like");
@@ -142,7 +142,7 @@ const Card = ({
               onPress={liked ? onDislike : onLike}
             >
               <Text style={{ fontSize: 20, color: globalColors.Light }}>
-                {liked ? "💛" : "🤍"}
+                {liked !== null && (liked ? "💛" : "🤍")}
               </Text>
             </TouchableOpacity>
             <Text
