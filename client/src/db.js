@@ -39,7 +39,7 @@ export async function deleteBlog(id) {
     let data = await res.json();
     return data;
   } catch (error) {
-    alert(error.msg);
+    return { error: "Server Error, Please Try Lter!" };
   }
 }
 

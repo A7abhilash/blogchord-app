@@ -18,7 +18,6 @@ const Home = ({ navigation }) => {
   }, []);
 
   const fetchBlogs = () => {
-    console.log("Called");
     setLoading(true);
     setError(false);
     setBlogs(null);

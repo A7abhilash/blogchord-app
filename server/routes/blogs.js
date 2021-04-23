@@ -7,7 +7,7 @@ router.post("/post", async (req, res) => {
   try {
     // console.log(req.body);
     let blog = await Blog.create(req.body);
-    res.status(200).json({ blog, msg: "New blog posted 👌." });
+    res.status(200).json({ blog, msg: "New blog posted 👌" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Server error, Please try later." });
@@ -68,7 +68,6 @@ router.patch("/updateLikes/:id", async (req, res) => {
 //*desc     Delete a blog
 router.delete("/delete/:id", async (req, res) => {
   try {
-    console.log("Blog" + req.params.id);
     try {
       let blog = await Blog.findById(req.params.id);
       if (!blog) {
@@ -77,10 +76,10 @@ router.delete("/delete/:id", async (req, res) => {
       await blog.deleteOne(req.body);
       res.status(200).json({ msg: "Blog deleted 👀" });
     } catch (error) {
-      return res.status(400).json({ msg: "404 Error" });
+      return res.status(400).json({ error: "404 Error" });
     }
   } catch (error) {
-    res.status(500).json({ msg: "Server error, Please try later." });
+    res.status(500).json({ error: "Server error, Please try later." });
   }
 });
 
