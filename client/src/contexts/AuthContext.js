@@ -37,6 +37,7 @@ export function AuthProvider({ children }) {
   };
 
   const fetchUserData = async () => {
+    setLoading(true);
     const accessToken = await AsyncStorage.getItem("accessToken");
     fetch("https://www.googleapis.com/userinfo/v2/me", {
       headers: new Headers({
@@ -63,7 +64,8 @@ export function AuthProvider({ children }) {
       .catch((err) => {
         console.log(err);
         setAlert("Error", "Server error, Please try later.", [{ text: "OK" }]);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
