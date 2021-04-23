@@ -29,15 +29,20 @@ export default function AppNavigator() {
             headerTintColor: globalColors.Danger,
             headerTitleStyle: {
               fontSize: 26,
-              fontWeight: "bold",
+              fontWeight: "500",
             },
-            headerTitle: "Blogchord",
-            headerRight: () => <Logout />,
           }}
         >
           {isAuthenticated ? (
             <>
-              <Stack.Screen name="Blogchord" component={AuthNavigator} />
+              <Stack.Screen
+                name="Blogchord"
+                component={AuthNavigator}
+                options={{
+                  headerTitle: "Blogchord",
+                  headerRight: () => <Logout />,
+                }}
+              />
               <Stack.Screen name="Read Blog" component={ReadBlog} />
               {/* 
                 <Stack.Screen 
@@ -45,7 +50,13 @@ export default function AppNavigator() {
                   component={EditBlog}
                 />
               */}
-              <Stack.Screen name="Profile Visit" component={ProfileVisit} />
+              <Stack.Screen
+                name="Profile Visit"
+                component={ProfileVisit}
+                options={{
+                  headerTitle: "User",
+                }}
+              />
             </>
           ) : (
             <Stack.Screen
