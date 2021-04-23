@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 import { useMsg } from "../contexts/MsgContext";
-import { updateLikes, updateBookmark, getLoggedInUserDetails } from "../db";
+import {
+  updateLikes,
+  updateBookmark,
+  getLoggedInUserDetails,
+  deleteBlog,
+} from "../db";
 import { globalStyles } from "../styles/globalStyles";
 import Card from "./Card";
 
@@ -72,6 +77,13 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
     }
   };
 
+  const handleDelete = async (id, access) => {
+    if (access) {
+      let res = await deleteBlog(id);
+      setToast(res.msg);
+    }
+  };
+
   return displayBlogs?.length ? (
     <FlatList
       data={displayBlogs}
@@ -82,6 +94,7 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
           blog={item}
           access={user?._id === item.user._id}
           isProfile={false}
+          handleDelete={handleDelete}
           addBookmark={addBookmark}
           isBookmarked={savedLists?.includes(item._id)}
           removeBookmark={removeBookmark}

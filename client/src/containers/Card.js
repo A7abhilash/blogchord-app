@@ -14,6 +14,7 @@ const Card = ({
   navigate,
   blog,
   access,
+  handleDelete,
   addBookmark,
   isBookmarked,
   removeBookmark,
@@ -55,6 +56,17 @@ const Card = ({
         },
         {
           text: "Delete",
+          onPress: () => {
+            Alert.alert("Delete", "Are you sure to delete this blog?", [
+              {
+                text: "Cancel",
+              },
+              {
+                text: "Confirm Delete",
+                onPress: () => handleDelete(blog._id, access),
+              },
+            ]);
+          },
         },
       ]);
   };

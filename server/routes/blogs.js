@@ -68,6 +68,7 @@ router.patch("/updateLikes/:id", async (req, res) => {
 //*desc     Delete a blog
 router.delete("/delete/:id", async (req, res) => {
   try {
+    console.log("Blog" + req.params.id);
     try {
       let blog = await Blog.findById(req.params.id);
       if (!blog) {
