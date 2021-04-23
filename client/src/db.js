@@ -50,7 +50,7 @@ export async function updateBookmark(updatedList, userId) {
       userId,
     };
     // console.log(updateList);
-    let res = await fetch("${BACKEND_URL}/users/bookmarks", {
+    let res = await fetch(`${BACKEND_URL}/users/bookmarks`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",

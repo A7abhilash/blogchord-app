@@ -1,12 +1,11 @@
 const router = require("express").Router();
-const { ensureAuth } = require("../middleware/auth");
 const Blog = require("../models/Blogs");
 const User = require("../models/Users");
 const Bookmark = require("../models/Bookmarks");
 
 //*route    /users/:id
 //*desc     Fetch the required user's blogs
-router.get("/:id", ensureAuth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     try {
       const user = await User.findById(req.params.id);
@@ -18,10 +17,10 @@ router.get("/:id", ensureAuth, async (req, res) => {
       res.status(200).json({ user, blogs });
     } catch (error) {
       // console.error(error);
-      res.status(404).json({ msg: "User not found" });
+      res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
-    res.status(500).json({ msg: "Server Error" });
+    res.status(500).json({ error: "Server Error" });
   }
 });
 
@@ -73,12 +72,9 @@ module.exports = router;
 
 //*route    /users/bookmarks
 //*desc     add/remove a blog to/from bookmark
-router.patch("/bookmarks", ensureAuth, async (req, res) => {
+router.patch("/bookmarks", async (req, res) => {
   try {
     try {
-      if (req.body.userId.toString() !== req.user.id.toString()) {
-        throw "Error";
-      }
       let savedBlogsList = await Bookmark.findOne({
         user: req.body.userId,
       });
@@ -87,10 +83,10 @@ router.patch("/bookmarks", ensureAuth, async (req, res) => {
       return res.status(200).json({ status: 200, msg: "Bookmarks updated" });
     } catch (error) {
       console.log(error);
-      res.status(400).json({ status: 400, msg: "404 Error" });
+      res.status(400).json({ status: 400, error: "404 Error" });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ status: 500, msg: "Server Error" });
+    res.status(500).json({ status: 500, error: "Server Error" });
   }
 });
