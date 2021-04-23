@@ -4,14 +4,14 @@ const { ensureAuth } = require("../middleware/auth");
 
 //*route    /blogs/post
 //*desc     Post a new blog
-router.post("/post", ensureAuth, async (req, res) => {
+router.post("/post", async (req, res) => {
   try {
     // console.log(req.body);
     let blog = await Blog.create(req.body);
-    res.status(200).json({ blogId: blog._id, msg: "New blog posted 👌." });
+    res.status(200).json({ blog, msg: "New blog posted 👌." });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: "Server error, Please try later." });
+    res.status(500).json({ error: "Server error, Please try later." });
   }
 });
 
