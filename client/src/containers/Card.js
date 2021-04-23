@@ -68,7 +68,12 @@ const Card = ({
         }}
       >
         <TouchableOpacity
-          onPress={() => navigate("Profile Visit", { userId: blog.user._id })}
+          // disabled={access}
+          onPress={
+            access
+              ? () => navigate("Dashboard")
+              : () => navigate("Profile Visit", { userId: blog.user._id })
+          }
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Image
