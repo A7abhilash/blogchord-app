@@ -4,6 +4,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Card, Subheading } from "react-native-paper";
 import UserProfile from "../../containers/UserProfile";
 import { globalColors, globalStyles } from "../../styles/globalStyles";
+import { RichEditor } from "react-native-pell-rich-editor";
 
 export default function ReadBlog({ route, navigation }) {
   const { blog } = route.params;
@@ -12,7 +13,7 @@ export default function ReadBlog({ route, navigation }) {
     <ScrollView style={globalStyles.component}>
       <Text
         style={{
-          ...globalStyles.textTitle,
+          ...globalStyles.textSubTitle,
           color: globalColors.Danger,
           textAlign: "center",
         }}
@@ -21,7 +22,9 @@ export default function ReadBlog({ route, navigation }) {
       </Text>
       <UserProfile user={blog.user} navigate={navigation.navigate} />
       <Card style={styles.cardContainer}>
-        <Card.Content style={{ backgroundColor: globalColors.Secondary }}>
+        <Card.Content
+          style={{ backgroundColor: globalColors.Secondary, paddingTop: 5 }}
+        >
           <Text
             style={{
               ...globalStyles.textTitle,
@@ -42,7 +45,7 @@ export default function ReadBlog({ route, navigation }) {
           </Subheading>
         </Card.Content>
         <Card.Content>
-          <Text
+          {/* <Text
             style={{
               color: globalColors.Light,
               marginVertical: 5,
@@ -50,7 +53,17 @@ export default function ReadBlog({ route, navigation }) {
             }}
           >
             {blog.body}
-          </Text>
+          </Text> */}
+          <RichEditor
+            editorStyle={{
+              backgroundColor: globalColors.Dark,
+              color: globalColors.Light,
+            }}
+            disabled={true}
+            initialContentHTML={blog.body}
+            style={{ flex: 1 }}
+            scrollEnabled={true}
+          />
         </Card.Content>
       </Card>
     </ScrollView>
