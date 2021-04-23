@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const Blog = require("./../models/Blogs");
-const { ensureAuth } = require("../middleware/auth");
 
 //*route    /blogs/post
 //*desc     Post a new blog
@@ -31,15 +30,12 @@ router.get("/", async (req, res) => {
 
 //*route    /blogs/edit/:id
 //*desc     Edit a blog
-router.patch("/edit/:id", ensureAuth, async (req, res) => {
+router.patch("/edit/:id", async (req, res) => {
   try {
     // console.log(req.body);
     try {
       let blog = await Blog.findById(req.params.id);
       if (!blog) {
-        throw "Error";
-      }
-      if (blog.user.toString() !== req.user.id.toString()) {
         throw "Error";
       }
       await blog.updateOne(req.body);
@@ -70,14 +66,11 @@ router.patch("/updateLikes/:id", async (req, res) => {
 
 //*route    /blogs/delete/:id
 //*desc     Delete a blog
-router.delete("/delete/:id", ensureAuth, async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   try {
     try {
       let blog = await Blog.findById(req.params.id);
       if (!blog) {
-        throw "Error";
-      }
-      if (blog.user.toString() !== req.user.id.toString()) {
         throw "Error";
       }
       await blog.deleteOne(req.body);
