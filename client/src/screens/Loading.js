@@ -1,11 +1,15 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { globalStyles } from "./../styles/globalStyles";
+import { View, ActivityIndicator } from "react-native";
+import { globalColors, globalStyles } from "./../styles/globalStyles";
 
 export default function Loading() {
   return (
     <View style={globalStyles.container}>
-      <Text style={globalStyles.textSubTitle}>Loading...</Text>
+      <ActivityIndicator
+        animating={true}
+        color={globalColors.Danger}
+        size={30}
+      />
     </View>
   );
 }

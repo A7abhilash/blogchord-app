@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import CustomError from "../components/CustomError";
 import { globalColors, globalStyles } from "../styles/globalStyles";
 import Loading from "./../screens/Loading";
@@ -14,8 +14,14 @@ const Home = ({ navigation }) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const fetchBlogs = () => {
+    console.log("Called");
     setLoading(true);
     setError(false);
+    setBlogs(null);
     fetch(`${BACKEND_URL}/blogs/`)
       .then((res) => res.json())
       .then((data) => {
@@ -24,26 +30,39 @@ const Home = ({ navigation }) => {
           setError(true);
           setToast(data.error);
         } else {
-          setBlogs(data);
+          setTimeout(() => setBlogs(data), 2000);
         }
       })
       .catch((err) => {
         setError(true);
         setToast("Server Error, Please Try Later");
       })
-      .finally(() => setLoading(false));
-  }, []);
+      .finally(() => setTimeout(() => setLoading(false), 2000));
+  };
 
   if (error) return <CustomError />;
 
   return (
     <View style={[globalStyles.component]}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <Text style={{ color: globalColors.Light, ...globalStyles.textTitle }}>
+          Recent Blogs
+        </Text>
+        <TouchableOpacity
+          disabled={loading}
+          onPress={fetchBlogs}
+          style={{ marginLeft: "auto", marginRight: 5 }}
+        >
+          <Text style={{ fontSize: 18 }}>🔁</Text>
+        </TouchableOpacity>
+      </View>
       {loading && <Loading />}
-      <Text style={{ color: globalColors.Light, ...globalStyles.textTitle }}>
-        Recent Blogs
-      </Text>
       {blogs !== null && (
-        <BlogContainer displayBlogs={blogs} navigation={navigation} />
+        <BlogContainer
+          displayBlogs={blogs}
+          navigation={navigation}
+          requestRefresh={fetchBlogs}
+        />
       )}
     </View>
   );

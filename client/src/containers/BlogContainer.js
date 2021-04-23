@@ -11,7 +11,11 @@ import {
 import { globalStyles } from "../styles/globalStyles";
 import Card from "./Card";
 
-export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
+export default function BlogContainer({
+  displayBlogs,
+  requestRefresh,
+  navigation,
+}) {
   const { user } = useAuth();
   const { setToast, setAlert } = useMsg();
   const [savedLists, setSavedLists] = useState([]);
@@ -80,7 +84,12 @@ export default function BlogContainer({ displayBlogs, isProfile, navigation }) {
   const handleDelete = async (id, access) => {
     if (access) {
       let res = await deleteBlog(id);
-      setToast(res.msg);
+      if (res.msg) {
+        requestRefresh();
+        setToast(res.msg);
+      } else if (res.error) {
+        setToast(res.error);
+      }
     }
   };
 
