@@ -10,6 +10,7 @@ import {
 } from "../db";
 import { globalStyles } from "../styles/globalStyles";
 import Card from "./Card";
+import CardNotFound from "./CardNotFound";
 
 export default function BlogContainer({
   displayBlogs,
@@ -97,22 +98,32 @@ export default function BlogContainer({
     <FlatList
       data={displayBlogs}
       keyExtractor={(item) => item._id}
-      renderItem={({ item }) => (
-        <Card
-          navigate={navigation.navigate}
-          blog={item}
-          access={user?._id === item.user._id}
-          isProfile={false}
-          handleDelete={handleDelete}
-          addBookmark={addBookmark}
-          isBookmarked={savedLists?.includes(item._id)}
-          removeBookmark={removeBookmark}
-          likes={item.likes}
-          isLiked={item.likes.includes(user?._id)}
-          likeBlog={likeBlog}
-          dislikeBlog={dislikeBlog}
-        />
-      )}
+      renderItem={({ item }) =>
+        item.status === "NotFound" ? (
+          <CardNotFound
+            blog={item}
+            access={true}
+            addBookmark={addBookmark}
+            isBookmarked={savedLists?.includes(item._id)}
+            removeBookmark={removeBookmark}
+          />
+        ) : (
+          <Card
+            navigate={navigation.navigate}
+            blog={item}
+            access={user?._id === item.user._id}
+            isProfile={false}
+            handleDelete={handleDelete}
+            addBookmark={addBookmark}
+            isBookmarked={savedLists?.includes(item._id)}
+            removeBookmark={removeBookmark}
+            likes={item.likes}
+            isLiked={item.likes.includes(user?._id)}
+            likeBlog={likeBlog}
+            dislikeBlog={dislikeBlog}
+          />
+        )
+      }
       showsVerticalScrollIndicator={false}
     />
   ) : (

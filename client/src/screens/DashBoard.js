@@ -32,6 +32,7 @@ const DashBoard = ({ navigation }) => {
         if (data.error) {
           setToast(data.error);
         } else if (data.blogs) {
+          setSelectedOption("all");
           setAllBlogs(data.blogs);
           setDisplayBlogs(data.blogs);
           setSavedBlogs(data.savedBlogs);
