@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import NewPost from "./screens/NewPost";
 import DashBoard from "./screens/DashBoard";
 import Home from "./screens/Home";
@@ -30,10 +30,19 @@ const AuthNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.labelContainer}>
+              <Image
+                source={require("./../assets/icons/home.png")}
+                style={{
+                  width: 25,
+                  height: 25,
+                  resizeMode: "contain",
+                  tintColor: focused ? globalColors.Danger : globalColors.Light,
+                }}
+              />
               <Text
                 style={{
                   color: focused ? globalColors.Danger : globalColors.Light,
-                  fontSize: 18,
+                  fontSize: 15,
                 }}
               >
                 Home
@@ -67,10 +76,19 @@ const AuthNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.labelContainer}>
+              <Image
+                source={require("./../assets/icons/user.png")}
+                style={{
+                  width: 25,
+                  height: 25,
+                  resizeMode: "contain",
+                  tintColor: focused ? globalColors.Danger : globalColors.Light,
+                }}
+              />
               <Text
                 style={{
                   color: focused ? globalColors.Danger : globalColors.Light,
-                  fontSize: 18,
+                  fontSize: 15,
                 }}
               >
                 Dashboard
@@ -90,7 +108,7 @@ const CustomTabButton = ({ children, onPress }) => {
     <TouchableOpacity
       onPress={onPress}
       style={{
-        top: -40,
+        top: -30,
         justifyContent: "center",
         alignItems: "center",
       }}
