@@ -25,8 +25,8 @@ export default function AppNavigator() {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            headerStyle: { backgroundColor: globalColors.Tab },
-            headerTintColor: globalColors.Danger,
+            headerStyle: { backgroundColor: globalColors.Danger },
+            headerTintColor: globalColors.Light,
             headerTitleStyle: {
               fontSize: 26,
               fontWeight: "500",
