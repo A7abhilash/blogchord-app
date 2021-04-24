@@ -26,6 +26,7 @@ const DashBoard = ({ navigation }) => {
 
   const fetchBlogs = () => {
     setLoading(true);
+    setDisplayBlogs(null);
     getLoggedInUserDetails(user._id)
       .then((data) => {
         if (data.error) {
@@ -65,6 +66,8 @@ const DashBoard = ({ navigation }) => {
       <SelectOptions
         selectedOption={selectedOption}
         selectOptions={setSelection}
+        requestRefresh={fetchBlogs}
+        loading={loading}
       />
       {loading && <Loading />}
       {displayBlogs && (

@@ -1,8 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { globalColors } from "../../styles/globalStyles";
 
-export default function SelectOptions({ selectOptions, selectedOption }) {
+export default function SelectOptions({
+  selectOptions,
+  selectedOption,
+  requestRefresh,
+  loading,
+}) {
   const options = [
     {
       id: "all",
@@ -46,6 +51,17 @@ export default function SelectOptions({ selectOptions, selectedOption }) {
           </TouchableOpacity>
         )
       )}
+      <TouchableOpacity disabled={loading} onPress={requestRefresh}>
+        <Image
+          source={require("./../../../assets/icons/refresh.png")}
+          style={{
+            width: 20,
+            height: 20,
+            resizeMode: "contain",
+            tintColor: globalColors.Info,
+          }}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
