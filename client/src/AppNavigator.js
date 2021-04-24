@@ -11,6 +11,7 @@ import ReadBlog from "./components/blogs/ReadBlog";
 import { Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ProfileVisit from "./components/profile/ProfileVisit";
+import EditBlog from "./components/blogs/EditBlog";
 
 export default function AppNavigator() {
   const { isAuthenticated, loading, user } = useAuth();
@@ -44,12 +45,9 @@ export default function AppNavigator() {
                 }}
               />
               <Stack.Screen name="Read Blog" component={ReadBlog} />
-              {/* 
-                <Stack.Screen 
-                  name="Edit Blog"
-                  component={EditBlog}
-                />
-              */}
+
+              <Stack.Screen name="Edit Blog" component={EditBlog} />
+
               <Stack.Screen
                 name="Profile Visit"
                 component={ProfileVisit}

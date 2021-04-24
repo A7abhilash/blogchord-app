@@ -8,44 +8,46 @@ import {
   Keyboard,
 } from "react-native";
 import { Button, Switch, TextInput } from "react-native-paper";
-import { globalColors, globalStyles } from "../styles/globalStyles";
+import { globalColors, globalStyles } from "./../../styles/globalStyles";
 import {
   RichEditor,
   RichToolbar,
   actions,
 } from "react-native-pell-rich-editor";
-import { useAuth } from "../contexts/AuthContext";
-import { useMsg } from "../contexts/MsgContext";
-import { BACKEND_URL } from "../db";
+import { useAuth } from "../../contexts/AuthContext";
+import { useMsg } from "../../contexts/MsgContext";
+import { BACKEND_URL } from "../../db";
 
-const NewPost = ({ navigation }) => {
+const EditBlog = ({ route, navigation }) => {
+  const { blog } = route.params;
   const { user } = useAuth();
   const { setAlert, setToast } = useMsg();
   const [disableButtons, setDisableButtons] = useState(false);
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [title, setTitle] = useState(blog.title);
+  const [body, setBody] = useState(blog.body);
   const richText = useRef();
 
-  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const [isSwitchOn, setIsSwitchOn] = useState(
+    blog.status === "Private" ? true : false
+  );
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
-  const postBlog = () => {
+  const editBlog = () => {
     if (title && body) {
       setDisableButtons(true);
-      let newBlog = {
+      let updateBlog = {
         title,
         status: isSwitchOn ? "Private" : "Public",
         body,
-        likes: [user?._id.toString()],
         user: user?._id,
       };
-      fetch(`${BACKEND_URL}/blogs/post`, {
+      fetch(`${BACKEND_URL}/blogs/edit/${blog._id}`, {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newBlog),
+        body: JSON.stringify(updateBlog),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -75,7 +77,7 @@ const NewPost = ({ navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={[globalStyles.component]}>
+      <View style={{ flex: 1, backgroundColor: "#121212", padding: 20 }}>
         <Text
           style={{
             color: globalColors.Light,
@@ -83,7 +85,7 @@ const NewPost = ({ navigation }) => {
             textAlign: "center",
           }}
         >
-          New Blog
+          Edit
         </Text>
         <View style={{ flex: 1 }}>
           <ScrollView style={{ marginVertical: 10, flex: 1 }}>
@@ -109,7 +111,7 @@ const NewPost = ({ navigation }) => {
                 scrollEnabled={true}
               />
               <RichToolbar
-                style={{ backgroundColor: globalColors.Dark }}
+                style={{ backgroundColor: globalColors.Tab }}
                 selectedIconTint={{ color: globalColors.Light }}
                 selectedButtonStyle={{
                   borderColor: globalColors.Secondary,
@@ -156,11 +158,11 @@ const NewPost = ({ navigation }) => {
               mode="contained"
               style={{ marginBottom: 50 }}
               color={globalColors.Success}
-              onPress={postBlog}
+              onPress={editBlog}
               disabled={disableButtons}
               dark={true}
             >
-              Post Blog
+              Edit Blog
             </Button>
           </ScrollView>
         </View>
@@ -169,6 +171,6 @@ const NewPost = ({ navigation }) => {
   );
 };
 
-export default NewPost;
+export default EditBlog;
 
 const styles = StyleSheet.create({});

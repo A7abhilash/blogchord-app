@@ -53,6 +53,7 @@ const Card = ({
         },
         {
           text: "Edit",
+          onPress: () => navigate("Edit Blog", { blog }),
         },
         {
           text: "Delete",
