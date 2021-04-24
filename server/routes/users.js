@@ -64,7 +64,7 @@ router.get("/auth/:id", async (req, res) => {
     return res.status(200).json({ blogs, savedBlogs, savedBlogsList });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: "Server Error" });
+    return res.status(500).json({ error: "Server Error" });
   }
 });
 

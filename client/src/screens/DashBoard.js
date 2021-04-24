@@ -7,9 +7,11 @@ import Loading from "../screens/Loading";
 import { useAuth } from "../contexts/AuthContext";
 import { getLoggedInUserDetails } from "../db";
 import { globalColors, globalStyles } from "../styles/globalStyles";
+import { useMsg } from "../contexts/MsgContext";
 
 const DashBoard = ({ navigation }) => {
   const { user } = useAuth();
+  const { setToast } = useMsg();
   const [loading, setLoading] = useState(true);
   const [allBlogs, setAllBlogs] = useState(null);
   const [selectedOption, setSelectedOption] = useState("all");
@@ -24,12 +26,15 @@ const DashBoard = ({ navigation }) => {
 
   const fetchBlogs = () => {
     setLoading(true);
-    getLoggedInUserDetails(user)
+    getLoggedInUserDetails(user._id)
       .then((data) => {
-        console.log(data);
-        setAllBlogs(data.blogs);
-        setDisplayBlogs(data.blogs);
-        setSavedBlogs(data.savedBlogs);
+        if (data.error) {
+          setToast(data.error);
+        } else if (data.blogs) {
+          setAllBlogs(data.blogs);
+          setDisplayBlogs(data.blogs);
+          setSavedBlogs(data.savedBlogs);
+        }
       })
       .finally(() => setLoading(false));
   };
