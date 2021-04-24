@@ -39,12 +39,12 @@ router.patch("/edit/:id", async (req, res) => {
         throw "Error";
       }
       await blog.updateOne(req.body);
-      res.status(200).json({ msg: "Edited blog 👍" });
+      res.status(200).json({ blog: req.body, msg: "Edited blog 👍" });
     } catch (error) {
-      return res.status(400).json({ msg: "404 Error" });
+      return res.status(400).json({ error: "404 Error" });
     }
   } catch (error) {
-    res.status(500).json({ msg: "Server error, Please try later." });
+    res.status(500).json({ error: "Server error, Please try later." });
   }
 });
 

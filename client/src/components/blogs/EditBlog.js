@@ -42,7 +42,7 @@ const EditBlog = ({ route, navigation }) => {
         user: user?._id,
       };
       fetch(`${BACKEND_URL}/blogs/edit/${blog._id}`, {
-        method: "POST",
+        method: "PATCH",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -59,6 +59,7 @@ const EditBlog = ({ route, navigation }) => {
             setIsSwitchOn(false);
             setToast(data.msg);
             data.blog.user = user;
+            console.log(data.blog);
             navigation.navigate("Read Blog", { blog: data.blog });
           }
         })
