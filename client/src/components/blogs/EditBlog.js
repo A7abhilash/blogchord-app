@@ -59,7 +59,6 @@ const EditBlog = ({ route, navigation }) => {
             setIsSwitchOn(false);
             setToast(data.msg);
             data.blog.user = user;
-            console.log(data.blog);
             navigation.navigate("Read Blog", { blog: data.blog });
           }
         })

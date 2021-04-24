@@ -117,6 +117,7 @@ const Card = ({
               style={{
                 width: 20,
                 height: 20,
+                resizeMode: "contain",
               }}
             />
           </TouchableOpacity>
@@ -132,9 +133,19 @@ const Card = ({
                 : () => addBookmark(blog._id)
             }
           >
-            <Text style={{ fontSize: 28, color: globalColors.Primary }}>
-              {isBookmarked ? "★" : "☆"}
-            </Text>
+            <Image
+              source={
+                isBookmarked
+                  ? require("./../../assets/icons/star-1.png")
+                  : require("./../../assets/icons/star-2.png")
+              }
+              style={{
+                width: 22,
+                height: 22,
+                resizeMode: "contain",
+                tintColor: globalColors.Primary,
+              }}
+            />
           </TouchableOpacity>
         )}
       </View>
@@ -153,19 +164,32 @@ const Card = ({
               marginLeft: "auto",
               marginRight: 5,
               flexDirection: "row",
+              alignItems: "flex-end",
             }}
           >
             <TouchableOpacity
               disabled={access}
               onPress={liked ? onDislike : onLike}
             >
-              <Text style={{ fontSize: 20, color: globalColors.Light }}>
-                {liked !== null && (liked ? "💛" : "🤍")}
-              </Text>
+              <Image
+                source={
+                  liked !== null
+                    ? liked
+                      ? require("./../../assets/icons/like.png")
+                      : require("./../../assets/icons/unlike.png")
+                    : ""
+                }
+                style={{
+                  width: 26,
+                  height: 26,
+                  resizeMode: "contain",
+                  tintColor: globalColors.Warning,
+                }}
+              />
             </TouchableOpacity>
             <Text
               style={{
-                fontSize: 20,
+                fontSize: 16,
                 marginLeft: 5,
                 color: globalColors.Warning,
               }}
@@ -206,5 +230,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     marginVertical: 10,
+    alignItems: "flex-start",
   },
 });

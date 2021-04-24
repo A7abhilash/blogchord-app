@@ -8,7 +8,7 @@ import Login from "./screens/Login";
 import AuthNavigator from "./AuthNavigator";
 import { globalColors } from "./styles/globalStyles";
 import ReadBlog from "./components/blogs/ReadBlog";
-import { Text } from "react-native";
+import { Image, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ProfileVisit from "./components/profile/ProfileVisit";
 import EditBlog from "./components/blogs/EditBlog";
@@ -45,9 +45,7 @@ export default function AppNavigator() {
                 }}
               />
               <Stack.Screen name="Read Blog" component={ReadBlog} />
-
               <Stack.Screen name="Edit Blog" component={EditBlog} />
-
               <Stack.Screen
                 name="Profile Visit"
                 component={ProfileVisit}
@@ -83,7 +81,10 @@ const Logout = () => {
 
   return (
     <TouchableOpacity onPress={logOut} style={{ marginRight: 10 }}>
-      <Text style={{ fontSize: 24 }}>👋🏻</Text>
+      <Image
+        source={require("./../assets/icons/logout.png")}
+        style={{ width: 24, height: 24, resizeMode: "center" }}
+      />
     </TouchableOpacity>
   );
 };

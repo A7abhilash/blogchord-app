@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import CustomError from "../components/CustomError";
 import { globalColors, globalStyles } from "../styles/globalStyles";
 import Loading from "./../screens/Loading";
@@ -52,7 +52,15 @@ const Home = ({ navigation }) => {
           onPress={fetchBlogs}
           style={{ marginLeft: "auto", marginRight: 5 }}
         >
-          <Text style={{ fontSize: 18 }}>🔁</Text>
+          <Image
+            source={require("./../../assets/icons/refresh.png")}
+            style={{
+              width: 25,
+              height: 25,
+              resizeMode: "contain",
+              tintColor: globalColors.Info,
+            }}
+          />
         </TouchableOpacity>
       </View>
       {loading && <Loading />}
