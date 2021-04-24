@@ -45,15 +45,6 @@ export default function ReadBlog({ route, navigation }) {
           </Subheading>
         </Card.Content>
         <Card.Content>
-          {/* <Text
-            style={{
-              color: globalColors.Light,
-              marginVertical: 5,
-              fontSize: 18,
-            }}
-          >
-            {blog.body}
-          </Text> */}
           <RichEditor
             editorStyle={{
               backgroundColor: globalColors.Dark,
