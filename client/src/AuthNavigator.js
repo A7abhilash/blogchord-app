@@ -21,6 +21,7 @@ const AuthNavigator = () => {
           backgroundColor: globalColors.Dark,
           borderRadius: 15,
           height: 60,
+          borderTopWidth: 0,
         },
       }}
     >
