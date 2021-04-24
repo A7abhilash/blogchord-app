@@ -13,7 +13,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import ProfileVisit from "./components/profile/ProfileVisit";
 
 export default function AppNavigator() {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, user } = useAuth();
   if (loading) {
     return <Loading />;
   }
@@ -33,7 +33,7 @@ export default function AppNavigator() {
             },
           }}
         >
-          {isAuthenticated ? (
+          {isAuthenticated && user ? (
             <>
               <Stack.Screen
                 name="Blogchord"

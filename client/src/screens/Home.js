@@ -29,14 +29,14 @@ const Home = ({ navigation }) => {
           setError(true);
           setToast(data.error);
         } else {
-          setTimeout(() => setBlogs(data), 2000);
+          setBlogs(data);
         }
       })
       .catch((err) => {
         setError(true);
         setToast("Server Error, Please Try Later");
       })
-      .finally(() => setTimeout(() => setLoading(false), 2000));
+      .finally(() => setLoading(false));
   };
 
   if (error) return <CustomError />;
