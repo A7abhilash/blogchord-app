@@ -44,7 +44,7 @@ export default function ProfileVisit({ route, navigation }) {
   if (error) return <CustomError />;
 
   return (
-    <View style={globalStyles.component}>
+    <View style={{ flex: 1, backgroundColor: "#121212", padding: 20 }}>
       {loading && <Loading />}
       {profile && <UserProfile user={profile} isProfile={true} />}
       {blogs !== null && (
