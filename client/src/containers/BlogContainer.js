@@ -22,13 +22,15 @@ export default function BlogContainer({
   const [savedLists, setSavedLists] = useState([]);
 
   useEffect(() => {
-    getLoggedInUserDetails(user?._id).then((data) => {
-      if (data.error) {
-        setToast("Couldnt load your bookmarks!!!");
-      } else {
-        setSavedLists(data?.savedBlogsList?.blogs);
-      }
-    });
+    if (user) {
+      getLoggedInUserDetails(user?._id).then((data) => {
+        if (data.error) {
+          setToast("Couldnt load your bookmarks!!!");
+        } else {
+          setSavedLists(data?.savedBlogsList?.blogs);
+        }
+      });
+    }
   }, [setSavedLists, user?._id]);
 
   const addBookmark = async (blogId) => {
