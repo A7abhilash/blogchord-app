@@ -27,12 +27,12 @@ const DashBoard = ({ navigation }) => {
   const fetchBlogs = () => {
     setLoading(true);
     setDisplayBlogs(null);
+    setSelectedOption("all");
     getLoggedInUserDetails(user._id)
       .then((data) => {
         if (data.error) {
           setToast(data.error);
         } else if (data.blogs) {
-          setSelectedOption("all");
           setAllBlogs(data.blogs);
           setDisplayBlogs(data.blogs);
           setSavedBlogs(data.savedBlogs);
