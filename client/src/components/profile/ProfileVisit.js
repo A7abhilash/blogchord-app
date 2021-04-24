@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import BlogContainer from "../../containers/BlogContainer";
+import UserProfile from "../../containers/UserProfile";
 import { useMsg } from "../../contexts/MsgContext";
 import { BACKEND_URL } from "../../db";
 import { globalColors, globalStyles } from "../../styles/globalStyles";
 import CustomError from "../CustomError";
+import Loading from "./../../screens/Loading";
 
-export default function ProfileVisit({ route }) {
+export default function ProfileVisit({ route, navigation }) {
   const { userId } = route.params;
   const { setToast } = useMsg();
   const [profile, setProfile] = useState(null);
@@ -42,7 +45,22 @@ export default function ProfileVisit({ route }) {
 
   return (
     <View style={globalStyles.component}>
-      <Text style={{ color: globalColors.Light }}>{userId}</Text>
+      {loading && <Loading />}
+      {profile && <UserProfile user={profile} isProfile={true} />}
+      {blogs !== null && (
+        <>
+          <Text
+            style={{
+              color: globalColors.Light,
+              ...globalStyles.textTitle,
+              marginTop: 10,
+            }}
+          >
+            Blogs
+          </Text>
+          <BlogContainer displayBlogs={blogs} navigation={navigation} />
+        </>
+      )}
     </View>
   );
 }

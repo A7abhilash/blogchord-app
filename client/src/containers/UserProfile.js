@@ -4,7 +4,7 @@ import { Button } from "react-native-paper";
 import { useAuth } from "../contexts/AuthContext";
 import { globalColors } from "../styles/globalStyles";
 
-export default function UserProfile({ user, navigate }) {
+export default function UserProfile({ user, navigate, isProfile }) {
   const { user: currentUser } = useAuth();
   return (
     user &&
@@ -43,7 +43,7 @@ export default function UserProfile({ user, navigate }) {
           >
             {user?.displayName}
           </Text>
-          {currentUser?._id !== user._id && (
+          {!isProfile && currentUser?._id !== user._id && (
             <Button
               color={globalColors.Info}
               onPress={() => navigate("Profile Visit", { userId: user._id })}

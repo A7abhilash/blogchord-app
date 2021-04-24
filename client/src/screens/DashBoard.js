@@ -9,7 +9,7 @@ const DashBoard = () => {
 
   return (
     <View style={globalStyles.component}>
-      <UserProfile user={user} />
+      <UserProfile user={user} isProfile={true} />
     </View>
   );
 };
