@@ -1,21 +1,18 @@
 const express = require("express");
+const auth = require("../middleware/auth");
 const router = express.Router();
-const { ensureAuth, ensureGuest } = require("./../middleware/auth");
 
 const Users = require("./../models/Users");
 
-//Add ensureAuth whenever u wanna check whether the user is authenticated or not...
-
-//@route     GET /index
-//@desc       Welcome Homepage
-router.get("/", ensureGuest, (req, res) => {
-  res.redirect(`${process.env.FRONTEND_URL}/`);
-});
-
-//@route     GET /dashboard
-//@desc       Open Dashboard when succesfully logged In
-router.get("/dashboard", ensureAuth, (req, res) => {
-  res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
+//@dummy_route    GET /test
+//@desc           Testing route for auth middleware...
+router.get("/test", auth, async (req, res) => {
+  try {
+    console.log("Called test route");
+    console.log(req.user);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 //@route     GET /user

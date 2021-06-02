@@ -177,7 +177,7 @@ const Card = ({
                     ? liked
                       ? require("./../../assets/icons/like.png")
                       : require("./../../assets/icons/unlike.png")
-                    : ""
+                    : require("./../../assets/icons/like.png")
                 }
                 style={{
                   width: 26,

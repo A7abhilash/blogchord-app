@@ -39,6 +39,7 @@ export function AuthProvider({ children }) {
   const fetchUserData = async () => {
     setLoading(true);
     const accessToken = await AsyncStorage.getItem("accessToken");
+    console.log(accessToken);
     fetch("https://www.googleapis.com/userinfo/v2/me", {
       headers: new Headers({
         Authorization: `Bearer ${accessToken}`,

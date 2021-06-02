@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../contexts/AuthContext";
 import { globalColors, globalStyles } from "../styles/globalStyles";
 import { useMsg } from "../contexts/MsgContext";
+import config from "../config";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -13,9 +14,7 @@ export default function Login() {
   const { setToast } = useMsg();
   const { setIsAuthenticated } = useAuth();
   const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId:
-      "1046350094084-h1mc7rdmoh4673m0hdf0os75n7vvv2dg.apps.googleusercontent.com",
-    // expoClientId: "GOOGLE_GUID.apps.googleusercontent.com",
+    expoClientId: config.expoClientId,
     scopes: ["profile", "email"],
   });
 
@@ -35,7 +34,8 @@ export default function Login() {
       }
     }
     // else {
-    //   setToast("Cancelled Sign In");
+    //   // setToast("Cancelled Sign In");
+    //   console.log(response);
     // }
   }, [response]);
 

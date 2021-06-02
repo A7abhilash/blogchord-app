@@ -13,3 +13,5 @@ web-build/
 .DS_Store
 
 /example.http
+
+config.js
