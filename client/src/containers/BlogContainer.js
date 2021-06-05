@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
+import { useDB } from "../contexts/DBContext";
 import { useMsg } from "../contexts/MsgContext";
-import {
-  updateLikes,
-  updateBookmark,
-  getLoggedInUserDetails,
-  deleteBlog,
-} from "../db";
 import { globalStyles } from "../styles/globalStyles";
 import Card from "./Card";
 import CardNotFound from "./CardNotFound";
@@ -18,6 +13,8 @@ export default function BlogContainer({
   navigation,
 }) {
   const { user } = useAuth();
+  const { updateLikes, updateBookmark, getLoggedInUserDetails, deleteBlog } =
+    useDB();
   const { setToast, setAlert } = useMsg();
   const [savedLists, setSavedLists] = useState([]);
 

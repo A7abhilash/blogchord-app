@@ -11,6 +11,7 @@ export const useAuth = () => {
 export function AuthProvider({ children }) {
   const { setAlert, setToast } = useMsg();
   const [user, setUser] = useState(null);
+  const [authToken, setAuthToken] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -39,7 +40,8 @@ export function AuthProvider({ children }) {
   const fetchUserData = async () => {
     setLoading(true);
     const accessToken = await AsyncStorage.getItem("accessToken");
-    console.log(accessToken);
+    // console.log(accessToken);
+    setAuthToken(accessToken);
     fetch("https://www.googleapis.com/userinfo/v2/me", {
       headers: new Headers({
         Authorization: `Bearer ${accessToken}`,
@@ -94,7 +96,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, setIsAuthenticated, isAuthenticated }}
+      value={{ user, loading, setIsAuthenticated, isAuthenticated, authToken }}
     >
       {children}
     </AuthContext.Provider>

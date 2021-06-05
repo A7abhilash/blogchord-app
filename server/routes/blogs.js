@@ -1,9 +1,10 @@
 const router = require("express").Router();
 const Blog = require("./../models/Blogs");
+const auth = require("../middleware/auth");
 
 //*route    /blogs/post
 //*desc     Post a new blog
-router.post("/post", async (req, res) => {
+router.post("/post", auth, async (req, res) => {
   try {
     // console.log(req.body);
     let blog = await Blog.create(req.body);
@@ -16,7 +17,7 @@ router.post("/post", async (req, res) => {
 
 //*route    /blogs/
 //*desc     Display all public blogs
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const blogs = await Blog.find({ status: "Public" })
       .populate("user")
@@ -30,12 +31,15 @@ router.get("/", async (req, res) => {
 
 //*route    /blogs/edit/:id
 //*desc     Edit a blog
-router.patch("/edit/:id", async (req, res) => {
+router.patch("/edit/:id", auth, async (req, res) => {
   try {
     // console.log(req.body);
     try {
       let blog = await Blog.findById(req.params.id);
       if (!blog) {
+        throw "Error";
+      }
+      if (blog.user.toString() !== req.user._id.toString()) {
         throw "Error";
       }
       await blog.updateOne(req.body);
@@ -50,7 +54,7 @@ router.patch("/edit/:id", async (req, res) => {
 
 //*route    /blogs/updateLikes/:id
 //*desc     update likes on a blog
-router.patch("/updateLikes/:id", async (req, res) => {
+router.patch("/updateLikes/:id", auth, async (req, res) => {
   try {
     // console.log(req.body);
     let blog = await Blog.findById(req.params.id);
@@ -66,16 +70,20 @@ router.patch("/updateLikes/:id", async (req, res) => {
 
 //*route    /blogs/delete/:id
 //*desc     Delete a blog
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", auth, async (req, res) => {
   try {
     try {
       let blog = await Blog.findById(req.params.id);
       if (!blog) {
         throw "Error";
       }
+      if (blog.user.toString() !== req.user._id.toString()) {
+        throw "Error";
+      }
       await blog.deleteOne(req.body);
       res.status(200).json({ msg: "Blog deleted 👀" });
     } catch (error) {
+      console.log(error);
       return res.status(400).json({ error: "404 Error" });
     }
   } catch (error) {

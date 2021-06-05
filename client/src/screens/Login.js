@@ -5,13 +5,11 @@ import { Button, Image, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../contexts/AuthContext";
 import { globalColors, globalStyles } from "../styles/globalStyles";
-import { useMsg } from "../contexts/MsgContext";
 import config from "../config";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Login() {
-  const { setToast } = useMsg();
   const { setIsAuthenticated } = useAuth();
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: config.expoClientId,
@@ -33,10 +31,6 @@ export default function Login() {
         console.log(error);
       }
     }
-    // else {
-    //   // setToast("Cancelled Sign In");
-    //   console.log(response);
-    // }
   }, [response]);
 
   return (

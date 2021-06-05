@@ -3,13 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import BlogContainer from "../../containers/BlogContainer";
 import UserProfile from "../../containers/UserProfile";
 import { useMsg } from "../../contexts/MsgContext";
-import { BACKEND_URL } from "../../db";
+import { useDB } from "../../contexts/DBContext";
 import { globalColors, globalStyles } from "../../styles/globalStyles";
 import CustomError from "../CustomError";
 import Loading from "./../../screens/Loading";
 
 export default function ProfileVisit({ route, navigation }) {
   const { userId } = route.params;
+  const { BACKEND_URL, headers } = useDB();
   const { setToast } = useMsg();
   const [profile, setProfile] = useState(null);
   const [blogs, setBlogs] = useState(null);
@@ -20,7 +21,7 @@ export default function ProfileVisit({ route, navigation }) {
     if (userId) {
       setLoading(true);
       setError(false);
-      fetch(`${BACKEND_URL}/users/${userId}`)
+      fetch(`${BACKEND_URL}/users/${userId}`, { headers })
         .then((res) => res.json())
         .then((data) => {
           // console.log(data);

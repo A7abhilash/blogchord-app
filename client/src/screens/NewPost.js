@@ -16,11 +16,12 @@ import {
 } from "react-native-pell-rich-editor";
 import { useAuth } from "../contexts/AuthContext";
 import { useMsg } from "../contexts/MsgContext";
-import { BACKEND_URL } from "../db";
+import { useDB } from "../contexts/DBContext";
 
 const NewPost = ({ navigation }) => {
   const { user } = useAuth();
   const { setAlert, setToast } = useMsg();
+  const { BACKEND_URL, headers } = useDB();
   const [disableButtons, setDisableButtons] = useState(false);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -41,10 +42,7 @@ const NewPost = ({ navigation }) => {
       };
       fetch(`${BACKEND_URL}/blogs/post`, {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+        headers,
         body: JSON.stringify(newBlog),
       })
         .then((res) => res.json())

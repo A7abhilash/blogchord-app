@@ -1,6 +1,6 @@
 const express = require("express");
-const auth = require("../middleware/auth");
 const router = express.Router();
+const auth = require("../middleware/auth");
 
 const Users = require("./../models/Users");
 
@@ -17,7 +17,7 @@ router.get("/test", auth, async (req, res) => {
 
 //@route     GET /user
 //@desc       Send the details of logged in user
-router.get("/user", async (req, res) => {
+router.get("/user", auth, async (req, res) => {
   try {
     if (req.user) {
       let user = await Users.findOne({ googleId: req.user.googleId });

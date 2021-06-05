@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import { Text, TouchableOpacity, View, Image } from "react-native";
 import CustomError from "../components/CustomError";
 import { globalColors, globalStyles } from "../styles/globalStyles";
 import Loading from "./../screens/Loading";
 import { useMsg } from "../contexts/MsgContext";
-import { BACKEND_URL } from "./../db";
+import { useDB } from "../contexts/DBContext";
 import BlogContainer from "../containers/BlogContainer";
 
 const Home = ({ navigation }) => {
   const { setToast } = useMsg();
+  const { BACKEND_URL, headers } = useDB();
   const [blogs, setBlogs] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetchBlogs();
+    return fetchBlogs();
   }, []);
 
   const fetchBlogs = () => {
     setLoading(true);
     setError(false);
     setBlogs(null);
-    fetch(`${BACKEND_URL}/blogs/`)
+    fetch(`${BACKEND_URL}/blogs/`, { headers })
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -76,5 +77,3 @@ const Home = ({ navigation }) => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({});

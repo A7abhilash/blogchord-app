@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View } from "react-native";
 import SelectOptions from "../components/dashboard/SelectOptions";
 import BlogContainer from "../containers/BlogContainer";
 import UserProfile from "../containers/UserProfile";
 import Loading from "../screens/Loading";
 import { useAuth } from "../contexts/AuthContext";
-import { getLoggedInUserDetails } from "../db";
-import { globalColors, globalStyles } from "../styles/globalStyles";
+import { globalStyles } from "../styles/globalStyles";
 import { useMsg } from "../contexts/MsgContext";
+import { useDB } from "../contexts/DBContext";
 
 const DashBoard = ({ navigation }) => {
   const { user } = useAuth();
   const { setToast } = useMsg();
+  const { getLoggedInUserDetails } = useDB();
   const [loading, setLoading] = useState(true);
   const [allBlogs, setAllBlogs] = useState(null);
   const [selectedOption, setSelectedOption] = useState("all");
@@ -49,11 +50,11 @@ const DashBoard = ({ navigation }) => {
         return setDisplayBlogs(allBlogs);
       case "public":
         return setDisplayBlogs(
-          allBlogs.filter((blog) => blog.status === "Public")
+          allBlogs?.filter((blog) => blog.status === "Public")
         );
       case "private":
         return setDisplayBlogs(
-          allBlogs.filter((blog) => blog.status === "Private")
+          allBlogs?.filter((blog) => blog.status === "Private")
         );
       case "saved":
       default:

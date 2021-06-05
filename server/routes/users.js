@@ -2,10 +2,11 @@ const router = require("express").Router();
 const Blog = require("../models/Blogs");
 const User = require("../models/Users");
 const Bookmark = require("../models/Bookmarks");
+const auth = require("../middleware/auth");
 
 //*route    /users/:id
 //*desc     Fetch the required user's blogs
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   try {
     try {
       const user = await User.findById(req.params.id);
@@ -26,8 +27,12 @@ router.get("/:id", async (req, res) => {
 
 //*route    /users/auth/:id
 //*desc     Fetch the logged in user's blogs & notifications
-router.get("/auth/:id", async (req, res) => {
+router.get("/auth/:id", auth, async (req, res) => {
   try {
+    if (req.params.id.toString() !== req.user._id.toString()) {
+      throw "Error";
+    }
+
     const blogs = await Blog.find({ user: req.params.id })
       .populate("user")
       .sort({ createdAt: "desc" })
@@ -50,8 +55,7 @@ router.get("/auth/:id", async (req, res) => {
               // console.log(blogId);
               let item = {
                 _id: blogId,
-                body:
-                  "This blog has been deleted or turned into private status by the author.",
+                body: "This blog has been deleted or turned into private status by the author.",
                 status: "NotFound",
               };
               savedBlogs.push(item);
@@ -68,12 +72,14 @@ router.get("/auth/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
-
 //*route    /users/bookmarks
 //*desc     add/remove a blog to/from bookmark
-router.patch("/bookmarks", async (req, res) => {
+router.patch("/bookmarks", auth, async (req, res) => {
   try {
+    if (req.body.userId.toString() !== req.user._id.toString()) {
+      throw "Error";
+    }
+
     try {
       let savedBlogsList = await Bookmark.findOne({
         user: req.body.userId,
@@ -90,3 +96,5 @@ router.patch("/bookmarks", async (req, res) => {
     res.status(500).json({ status: 500, error: "Server Error" });
   }
 });
+
+module.exports = router;

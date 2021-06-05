@@ -8,7 +8,6 @@ module.exports = async (req, res, next) => {
   }
 
   try {
-    console.log("Auth: ", authorization);
     let config = {
       method: "get",
       url: "https://www.googleapis.com/userinfo/v2/me",
@@ -18,12 +17,12 @@ module.exports = async (req, res, next) => {
     };
 
     const result = await axios(config);
-    console.log(result.data);
+    // console.log(result.data);
     const { id } = result.data;
     const user = await Users.findOne({ googleId: id });
     req.user = user;
     next();
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };

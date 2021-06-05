@@ -16,11 +16,12 @@ import {
 } from "react-native-pell-rich-editor";
 import { useAuth } from "../../contexts/AuthContext";
 import { useMsg } from "../../contexts/MsgContext";
-import { BACKEND_URL } from "../../db";
+import { useDB } from "../../contexts/DBContext";
 
 const EditBlog = ({ route, navigation }) => {
   const { blog } = route.params;
   const { user } = useAuth();
+  const { BACKEND_URL, headers } = useDB();
   const { setAlert, setToast } = useMsg();
   const [disableButtons, setDisableButtons] = useState(false);
   const [title, setTitle] = useState(blog.title);
@@ -43,10 +44,7 @@ const EditBlog = ({ route, navigation }) => {
       };
       fetch(`${BACKEND_URL}/blogs/edit/${blog._id}`, {
         method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+        headers,
         body: JSON.stringify(updateBlog),
       })
         .then((res) => res.json())
