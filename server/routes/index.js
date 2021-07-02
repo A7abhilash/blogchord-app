@@ -15,21 +15,6 @@ router.get("/test", auth, async (req, res) => {
   }
 });
 
-//@route     GET /user
-//@desc       Send the details of logged in user
-router.get("/user", auth, async (req, res) => {
-  try {
-    if (req.user) {
-      let user = await Users.findOne({ googleId: req.user.googleId });
-      // console.log(user);
-      return res.json({ user });
-    }
-    return res.json(null);
-  } catch (error) {
-    return res.status(500).json({ msg: error.message });
-  }
-});
-
 //@route     GET /newUser
 //@desc       Add new user
 router.post("/newUser", async (req, res) => {
